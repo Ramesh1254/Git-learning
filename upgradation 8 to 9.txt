@@ -1,0 +1,159 @@
+																Upgration version migration 8 to 9
+
+																First of all, need to find out the incoming and outgoing flows.
+																 And need to find out the application names and  need to inform to the application teams, 
+																Guys I  going to upgrade in the version from eight to nine. 
+
+																I need a down time for upgrading the version, once I got the approvals I can go for upgradtion. 
+																Coming to the technical like, I need to take the queue manager objects and authorisation backup.
+																 We need to stop MQ services. 
+																 
+																we need to take  data and log path file systems backup.
+																 Once it is done, we need to uninstall the fix pack and uninstall the base pack,
+																after that  need to Install the base pack, install the fix pack, 
+																Later I need to start our MQ services. 
+
+																		
+																Later need to set the installation path,  	after that  need to check
+																 which queues having the messages & any channels are retrying status, Any fdc's has been generated,
+																 need to check all those things, after that application team need to check connectvity test 
+																if any issues occured  will fix it accordingly,
+																 After that we need to close the change tasks within a change window.
+																 
+																 
+																 OS readiness
+																 ============
+
+																Make sure your operating system is supported for the MQ version.
+
+
+																User and group setup
+																======================
+
+																Create the mqm group (on UNIX/Linux).
+
+																Ensure the installer runs with root/admin privileges.
+
+																Disk space check
+																=================
+
+																Verify enough free space in /var/mqm (Linux/UNIX) or C:\Program Files\IBM\MQ (Windows).
+
+																Plan separate space for logs if possible.
+
+																Networking
+																===========
+
+																Confirm TCP/IP is enabled.
+
+																Ensure port 1414 (or your chosen listener port) is free.
+
+																Security prep
+																=============
+
+																If TLS/SSL is required, prepare keystores and certificates.
+
+																Check cryptographic libraries are available.
+
+																Planning queue manager
+																======================
+
+																Decide queue manager name.
+
+																Choose logging type (circular vs. linear).
+																 
+																 ===============================================================================================
+																 Application stop
+																 
+
+																MQ installation steps:
+																========================================
+																1.Login to the root user
+
+																sudo su-
+
+																2. Unzip the binaries file
+
+																gunzip filename
+
+																3.untar the binaries file
+
+																tar -xvf file names
+
+																4. accecpt the licence for mq binaries to install in the server.
+
+																./mqlicence -accept
+
+																5. Install Mq binaries (first package runtimr should be install)
+
+																rpm -ivh package name
+
+																6. Verify the MQ packages which is installed 
+
+																rpm -qa grep -i mqm*
+
+																7.uninstall Mq binaries on serves.
+
+																rpm -ev package name
+
+																8. Assign MQ liberies to MQ software
+
+																setmqinst -i -n installation name.
+
+																=========================================================================
+
+																Package	Purpose
+																==================
+																MQSeriesRuntime   	MQ runtime components
+																MQSeriesServer	    Queue Manager/server components
+																MQSeriesClient	    MQ client libraries
+																MQSeriesJava	    Java/JMS support
+																MQSeriesJRE	        Java Runtime Environment used by MQ
+																MQSeriesSDK	        MQ development libraries/headers
+																MQSeriesSamples	    Sample programs
+																MQSeriesGSKit	    IBM Global Security Kit / TLS support
+																MQSeriesMan	        MQ documentation/manual pages
+																MQSeriesExplorer	MQ Explorer GUI, where supported
+																===================================================================================
+
+																Global unix support team will perform to move the nodes:
+
+																Pre checks are completed.
+																You can proceed the patching activity. Please follow below steps.
+
+																Currently the services are active on mqubmt-1, mqgwmt-1 and mquvmt-1.
+
+																1. Fail over the services to the mqubmt-2, mqgwmt-2 and mquvmt-2.
+																2. Get middleware team to confirm all working fine on the mqubmt-2, mqgwmt-2 and mquvmt-2 node.
+																3. Patch the mqubmt-1, mqgwmt-1 and mquvmt-1 node and confirm all OK from OS level.
+																4. Failback the services to mqubmt-1, mqgwmt-1 and mquvmt-1 node.
+																5. Get the middleware team to confirm all working fine on the mqubmt-1, mqgwmt-1 and mquvmt-1 node.
+																6. Patch the mqubmt-2, mqgwmt-2 and mquvmt-2 node and confirm all OK from OS level.
+
+																Non-clustered nodes can be patched in a single cycle.
+
+																* mqcolmt
+																* mqrcpmt
+																* mqstimt
+																* mqswsmt
+																* mqrqmt
+																===========================================================
+
+																TCP and IP
+																IP (Internet Protocol):
+
+																Think of it as the address system of the internet.
+
+																It defines how data packets are addressed and routed from one computer to another.
+
+																Example: Your home address tells the post office where to deliver a letter; IP addresses tell the network where to deliver data.
+
+																TCP (Transmission Control Protocol):
+
+																Works on top of IP.
+
+																Ensures that data is delivered reliably and in the correct order.
+
+																It breaks large messages into smaller packets, sends them, and reassembles them at the destination.
+
+																If packets are lost, TCP requests them again.
